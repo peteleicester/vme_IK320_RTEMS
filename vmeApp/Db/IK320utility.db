@@ -1,0 +1,25 @@
+# This database can be used to collect data from the encoders at very high rates.
+# Set the SCAN on this record to ".001 second" to read the encoders 1000 times a second
+record(ai, "$(P):ENC$(n)TEST:POLL") {
+  field(SCAN, "Passive")
+  field(DTYP, "Heidenhain IK320")
+  field(FLNK, "$(P):ENC$(n)TEST:BUFFER")
+  field(INP, "#C$(switches) S$(irq) @$(axis)")
+  field(PRIO, "HIGH")
+}
+
+# Stores the data as a circular buffer
+record(compress, "$(P):ENC$(n)TEST:BUFFER") {
+  field(SCAN, "Passive")
+  field(INP, "$(P):ENC$(n)TEST:POLL")
+  field(NSAM, "75000")
+  field(SDIS, "$(P):ENC$(n)TEST:STOP")
+}
+
+# This record checks whether the buffer is full and disables it
+# from collecting any more data
+record(calc, "$(P):ENC$(n)TEST:STOP") {
+  field(SCAN, "5 second")
+  field(CALC, "A>=65536")
+  field(INPA, "$(P):ENC$(n)TEST:BUFFER.NUSE")
+}

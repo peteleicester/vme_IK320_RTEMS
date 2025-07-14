@@ -1,4 +1,4 @@
-record(ai,"$(P)IK320:$(group)group")
+record(ai,"$(P):ENC:GRP")
 {
 	field(DTYP,"Heidenhain IK320 Group")
 	field(INP,"#C$(group) S0")

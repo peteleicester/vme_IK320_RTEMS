@@ -1,47 +1,51 @@
-record(mbbo,"$(P)IK320:$(sw2)$(axis)function")
+#% gdatag,template,simplePv,$(gda_name=)ENC$(n),$(gda_desc=) encoder
+
+record(mbbo,"$(P):ENC$(n):FUNC")
 {
 	field(DTYP,"Heidenhain IK320 Command")
 	field(OUT,"#C$(switches) S$(irq) @$(axis)")
 }
-record(mbbo,"$(P)IK320:$(sw2)$(axis)direction")
+record(mbbo,"$(P):ENC$(n):DIR")
 {
 	field(DTYP,"Heidenhain IK320 Sign")
 	field(OUT,"#C$(switches) S$(irq) @$(axis)")
 }
-record(dfanout,"$(P)IK320:$(sw2)$(axis)fanprec")
+record(dfanout,"$(P):ENC$(n):FAN")
 {
 	field(OMSL,"closed_loop")
-	field(DOL,"$(P)IK320:$(sw2)$(axis)prec.VAL  PP MS")
-	field(OUTA,"$(P)IK320:$(sw2)$(axis)raw.PREC  NPP NMS")
-	field(OUTB,"$(P)IK320:$(sw2)$(axis).PREC  NPP NMS")
+	field(DOL,"$(P):ENC$(n):PREC.VAL  PP MS")
+	field(OUTA,"$(P):ENC$(n):RAW.PREC  NPP NMS")
+	field(OUTB,"$(P):ENC$(n).PREC  NPP NMS")
 }
-record(ai,"$(P)IK320:$(sw2)$(axis)prec")
+record(ai,"$(P):ENC$(n):PREC")
 {
 	field(PREC,"0")
 	field(PINI,"YES")
 	field(VAL,"5")
-	field(FLNK,"$(P)IK320:$(sw2)$(axis)fanprec.VAL  PP MS")
+	field(FLNK,"$(P):ENC$(n):FAN.VAL  PP MS")
 }
-record(ai,"$(P)IK320:$(sw2)$(axis)raw")
+record(ai,"$(P):ENC$(n):RAW")
 {
 	field(DTYP,"Heidenhain IK320")
 	field(SCAN,"I/O Intr")
-	field(FLNK,"$(P)IK320:$(sw2)$(axis).VAL  PP MS")
+	field(FLNK,"$(P):ENC$(n).VAL  PP MS")
 	field(INP,"#C$(switches) S$(irq) @$(axis)")
 	field(PREC,"5")
 }
-record(calc,"$(P)IK320:$(sw2)$(axis)")
+
+#% gdatag,pv,ro,$(gda_name=)ENC$(n),RECORD,$(gda_desc=) encoder $(n)
+record(calc,"$(P):ENC$(n)")
 {
 	field(CALC,"A+B")
-	field(INPA,"$(P)IK320:$(sw2)$(axis)raw.VAL  NPP NMS")
+	field(INPA,"$(P):ENC$(n):RAW.VAL  NPP NMS")
 	field(PREC,"10")
 }
-record(mbbo,"$(P)IK320:$(sw2)003mode")
+record(mbbo,"$(P):ENC$(n):MODE")
 {
 	field(DTYP,"Heidenhain IK320 X3 Mode")
 	field(OUT,"#C$(switches) S$(irq) @003")
 }
-record(stringout,"$(P)IK320:$(sw2)003parm")
+record(stringout,"$(P):ENC$(n):PARM")
 {
 	field(DTYP,"Heidenhain IK320 Parameter")
 	field(OUT,"#C$(switches) S$(irq) @003")

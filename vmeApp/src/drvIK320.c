@@ -152,7 +152,8 @@ epicsExportAddress(int, drvIK320Debug);
     #define DM(LEVEL,FMT,ARGS...) ;
 #endif
 
-#define SHORTDELAY (0.005)  /* in seconds */
+/*#define SHORTDELAY (0.005)  /* in seconds */
+#define SHORTDELAY (0.01)  /* in seconds */
 
 #define NINT(f) (int)((f)>0 ? (f)+0.5 : (f)-0.5)
 
@@ -679,7 +680,7 @@ IK320IrqHandler(void *parm)
         sprintf(drvIK320LoggerString,"irqStatus: %x",(int)drv->card->irqStatus);*/
         semGive(drvIK320LoggerSem);
 #else /* rtems */
-        printk("irqStatus: %x",(int)drv->card->irqStatus);
+/*        printk("irqStatus: %x",(int)drv->card->irqStatus);*/
 #endif
     }
 #endif
